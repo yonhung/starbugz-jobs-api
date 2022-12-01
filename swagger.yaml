@@ -1,0 +1,252 @@
+openapi: 3.0.0
+info:
+  title: Jobs API
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://starbugz-jobs-api.herokuapp.com/api/v1
+  variables: {}
+paths:
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      summary: Login User
+      operationId: LoginUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/loginrequest'
+              - example:
+                  name: starbugz
+                  email: starbugz@starbugz.moe
+                  password: starbugz114514
+            example:
+              name: starbugz
+              email: starbugz@starbugz.moe
+              password: starbugz114514
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/register:
+    post:
+      tags:
+      - Auth
+      summary: Register User
+      operationId: RegisterUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/registerrequest'
+              - example:
+                  name: starbugz
+                  email: starbugz@starbugz.moe
+                  password: starbugz114514
+            example:
+              name: starbugz
+              email: starbugz@starbugz.moe
+              password: starbugz114514
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /jobs:
+    post:
+      tags:
+      - Jobs
+      summary: create a job
+      operationId: createajob
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/createajobrequest'
+              - example:
+                  company: 网易
+                  position: 游戏技术美术
+            example:
+              company: 网易
+              position: 游戏技术美术
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    get:
+      tags:
+      - Jobs
+      summary: get all jobs
+      operationId: getalljobs
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /jobs/{id}:
+    get:
+      parameters:
+        - name: id
+          in: path
+          schema: { type: string }
+          required: true
+      tags:
+      - Jobs
+      summary: get single job
+      operationId: getsinglejob
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    patch:
+      parameters:
+        - name: id
+          in: path
+          schema: { type: string }
+          required: true
+      tags:
+      - Jobs
+      summary: update a job
+      operationId: updateajob
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/updateajobrequest'
+              - example:
+                  company: 百度
+                  position: 高级架构师
+            example:
+              company: 百度
+              position: 高级架构师
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    delete:
+      parameters:
+        - name: id
+          in: path
+          schema: { type: string }
+          required: true
+      tags:
+      - Jobs
+      summary: delete a job
+      operationId: deleteajob
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+components:
+  schemas:
+    loginrequest:
+      title: loginrequest
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: starbugz
+        email: starbugz@starbugz.moe
+        password: starbugz114514
+    registerrequest:
+      title: registerrequest
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: starbugz
+        email: starbugz@starbugz.moe
+        password: starbugz114514
+    createajobrequest:
+      title: createajobrequest
+      required:
+      - company
+      - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: 网易
+        position: 游戏技术美术
+    updateajobrequest:
+      title: updateajobrequest
+      required:
+      - company
+      - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: 百度
+        position: 高级架构师
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: Misc
+  description: ''
+- name: Auth
+  description: ''
+- name: Jobs
+  description: ''
